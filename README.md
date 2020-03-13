@@ -9,8 +9,8 @@
 
 ## Authentication
 
-Before calling any methods, you must provide your
-[Polygon.io](https://polygon.io/docs/#getting-started) API Key.
+Before calling any methods you must provide your
+[Polygon.io](https://polygon.io/docs/#getting-started) API key.
 
 ```go
 import polygon
