@@ -2,11 +2,19 @@
 
 ## Methods
 
-| Method                                        | Returns    | Example                       |
-| :-------------------------------------------- | :--------- | :---------------------------- |
-| `polygon.Tickers(\*polygon.Parameters)`       | `[]Ticker` | [See Example](#Tickers)       |
-| `polygon.TickerTypes()`                       | `Types`    | [See Example](#TickerTypes)   |
-| `polygon.TickerDetails(\*polygon.Parameters)` | `Details`  | [See Example](#TickerDetails) |
+| Method                                       | Returns       | Example                         |
+| :------------------------------------------- | :------------ | :------------------------------ |
+| `polygon.Tickers(*polygon.Parameters)`       | `[]Ticker`    | [See Example](#Tickers)         |
+| `polygon.TickerTypes()`                      | `Types`       | [See Example](#TickerTypes)     |
+| `polygon.TickerDetails(*polygon.Parameters)` | `Details`     | [See Example](#TickerDetails)   |
+| `polygon.TickerNews()`                       | `[]News`      | [See Example](#TickerNews)      |
+| `polygon.Markets()`                          | `[]Market`    | [See Example](#Markets)         |
+| `polygon.Locales()`                          | `[]Locale`    | [See Example](#Locales)         |
+| `polygon.StockSplits()`                      | `[]Split`     | [See Example](#StockSplits)     |
+| `polygon.StockDividends()`                   | `[]Dividend`  | [See Example](#StockDividends)  |
+| `polygon.StockFinancials()`                  | `[]Financial` | [See Example](#StockFinancials) |
+| `polygon.MarketStatus()`                     | `Status`      | [See Example](#MarketStatus)    |
+| `polygon.MarketHolidays()`                   | `[]Holiday`   | [See Example](#MarketHolidays)  |
 
 ### Tickers
 
