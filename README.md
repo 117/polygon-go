@@ -16,7 +16,7 @@ Before calling any methods you must provide your
 import polygon
 
 func init() {
-    polygon.ApiKey("YOUR-API-KEY-GOES-HERE")
+    polygon.APIKey("YOUR-API-KEY-GOES-HERE")
 }
 ```
 
