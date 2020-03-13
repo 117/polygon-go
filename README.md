@@ -14,21 +14,9 @@ Query all ticker symbols which are supported by Polygon.io. This API includes
 Indices, Crypto, FX, and Stocks/Equities.
 
 ```go
-import polygon
-
-polygon.ApiKey("YOUR-API-KEY-HERE")
-
 tickers, err := polygon.Tickers(&polygon.Parameters{
-    Market
+    Market: "stocks",
 })
-
-if err != nil {
-    panic(err)
-}
-
-for _, ticker := range tickers {
-    // access each ticker here
-}
 ```
 
 ### TickerTypes
@@ -36,17 +24,7 @@ for _, ticker := range tickers {
 Get the mapping of ticker types to descriptions / long names.
 
 ```go
-import polygon
-
-polygon.ApiKey("YOUR-API-KEY-HERE")
-
 types, err := polygon.TickerTypes()
-
-if err != nil {
-    panic(err)
-}
-
-// access types here
 ```
 
 ### TickerDetails
@@ -56,17 +34,7 @@ offer an overview of the entity. Things like name, sector, description, logo and
 similar companies.
 
 ```go
-import polygon
-
-polygon.ApiKey("YOUR-API-KEY-HERE")
-
 details, err := polygon.TickerDetails(&polygon.Parameters{
-    Market
+    Symbol: "AAPL",
 })
-
-if err != nil {
-    panic(err)
-}
-
-// access details here
 ```
