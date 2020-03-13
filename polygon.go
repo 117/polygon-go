@@ -19,8 +19,8 @@ const (
 
 var apiKey string
 
-// ApiKey ...
-func ApiKey(key string) {
+// APIKey ...
+func APIKey(key string) {
 	apiKey = key
 }
 
