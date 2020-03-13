@@ -5,7 +5,7 @@
 
 ## Installation
 
-`go get -u github.com/117/polygon`
+`go get -u github.com/117/polygon@v0.0.1`
 
 ## Authentication
 
