@@ -1,8 +1,24 @@
 # polygon
 
+[![godoc](https://godoc.org/github.com/117/polygon?status.svg)](https://godoc.org/github.com/117/polygon)
+[![goreportcard](https://goreportcard.com/badge/github.com/117/polygon)](https://goreportcard.com/report/github.com/117/polygon)
+
 ## Installation
 
+`go get -u github.com/117/polygon`
+
 ## Authentication
+
+Before calling any methods, you must provide your
+[Polygon.io](https://polygon.io/docs/#getting-started) API Key.
+
+```go
+import polygon
+
+func init() {
+    polygon.APIKey("YOUR-API-KEY-GOES-HERE")
+}
+```
 
 ## Methods
 
@@ -270,7 +286,7 @@ aggregate, err := polygon.PreviousClose(&polygon.Parameters{
 Get the previous day close for the specified ticker.
 
 ```go
-aggregate, err := polygon.PreviousClose(&polygon.Parameters{
+aggregate, err := polygon.Aggregates(&polygon.Parameters{
     Ticker:     "AAPL",
     Timespan:   "day",
     From:       "2019-01-01",
