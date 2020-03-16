@@ -11,11 +11,7 @@ import (
 	"github.com/google/go-querystring/query"
 )
 
-const (
-	rest      = "https://api.polygon.io"
-	wss       = "wss://socket.polygon.io"
-	wssAlpaca = "wss://alpaca.socket.polygon.io"
-)
+const apiURL = "https://api.polygon.io"
 
 var apiKey string
 
@@ -45,7 +41,7 @@ func request(url string, pointer interface{}) error {
 
 func endpoint(path string, options interface{}) string {
 	values, _ := query.Values(options)
-	base := fmt.Sprintf("%s%s?apiKey=%s", rest, path, apiKey)
+	base := fmt.Sprintf("%s%s?apiKey=%s", apiURL, path, apiKey)
 
 	if encoded := values.Encode(); len(encoded) > 0 {
 		base = fmt.Sprintf("%s&%s", base, strings.ToLower(encoded))
