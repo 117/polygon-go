@@ -529,20 +529,6 @@ type Aggregate struct {
 	Condition4 int     `json:"c4"`
 }
 
-// DailyOpenCloseAfterHours ...
-func DailyOpenCloseAfterHours(parameters *Parameters) (Aggregate, Aggregate, Aggregate, error) {
-	var aggregate struct {
-		Symbol     string    `json:"symbol"`
-		Open       Aggregate `json:"open"`
-		Close      Aggregate `json:"close"`
-		AfterHours Aggregate `json:"afterHours"`
-	}
-
-	err := request(endpoint(fmt.Sprintf("/v1/open-close/%s/%s", parameters.Ticker, parameters.Date), &parameters), &aggregate)
-
-	return aggregate.Open, aggregate.Close, aggregate.AfterHours, err
-}
-
 // ConditionMappings ...
 func ConditionMappings(parameters *Parameters) (map[string]string, error) {
 	var mappings map[string]string
