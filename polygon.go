@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -13,11 +14,8 @@ import (
 
 const apiURL = "https://api.polygon.io"
 
-var apiKey string
-
-// APIKey ...
-func APIKey(key string) {
-	apiKey = key
+func init() {
+	http.DefaultClient.Timeout = time.Second * 15
 }
 
 func request(url string, pointer interface{}) error {
@@ -41,7 +39,7 @@ func request(url string, pointer interface{}) error {
 
 func endpoint(path string, options interface{}) string {
 	values, _ := query.Values(options)
-	base := fmt.Sprintf("%s%s?apiKey=%s", apiURL, path, apiKey)
+	base := fmt.Sprintf("%s%s?apiKey=%s", apiURL, path, os.Getenv("POLYGON_API_KEY"))
 
 	if encoded := values.Encode(); len(encoded) > 0 {
 		base = fmt.Sprintf("%s&%s", base, strings.ToLower(encoded))
