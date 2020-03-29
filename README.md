@@ -9,8 +9,7 @@
 
 ## Authentication
 
-Before calling any methods you must set your
-[Polygon.io](https://polygon.io/docs/#getting-started) API key as an environment
+Before calling any methods you must set your API key as an environment
 variable.
 
 ```GO
