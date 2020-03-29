@@ -5,18 +5,17 @@
 
 ## Installation
 
-`go get -u github.com/117/polygon@v0.0.1`
+`go get -u github.com/117/polygon@v0.1.0`
 
 ## Authentication
 
-Before calling any methods you must provide your
-[Polygon.io](https://polygon.io/docs/#getting-started) API key.
+Before calling any methods you must set your
+[Polygon.io](https://polygon.io/docs/#getting-started) API key as an environment
+variable.
 
-```go
-import polygon
-
+```GO
 func init() {
-    polygon.APIKey("YOUR-API-KEY-GOES-HERE")
+    os.Setenv("POLYGON_API_KEY", "...")
 }
 ```
 
