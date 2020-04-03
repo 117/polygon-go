@@ -1,3 +1,5 @@
+// @module github.com/117/polygon@v0.1.1
+
 package polygon
 
 import (

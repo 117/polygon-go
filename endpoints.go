@@ -34,22 +34,22 @@ func TickerTypes() (types Types, _ error) {
 
 // TickerDetails ...
 func TickerDetails(parameters *Parameters) (details Details, _ error) {
-	return details, req(end(fmt.Sprintf("/v1/meta/symbols/%s/company", parameters.Symbol), nil), &details)
+	return details, req(end(fmt.Sprintf("/v1/meta/symbols/%s/company", parameters.Ticker), nil), &details)
 }
 
 // TickerNews ...
 func TickerNews(parameters *Parameters) (news []News, _ error) {
-	return news, req(end(fmt.Sprintf("/v1/meta/symbols/%s/news", parameters.Symbol), &parameters), &news)
+	return news, req(end(fmt.Sprintf("/v1/meta/symbols/%s/news", parameters.Ticker), &parameters), &news)
 }
 
 // StockSplits ...
 func StockSplits(parameters *Parameters) (splits []Split, _ error) {
-	return splits, req(end(fmt.Sprintf("/v2/reference/splits/%s", parameters.Symbol), &parameters), &splits)
+	return splits, req(end(fmt.Sprintf("/v2/reference/splits/%s", parameters.Ticker), &parameters), &splits)
 }
 
 // StockDividends ...
 func StockDividends(parameters *Parameters) (dividends []Dividend, _ error) {
-	return dividends, req(end(fmt.Sprintf("/v2/reference/dividends/%s", parameters.Symbol), &parameters), &dividends)
+	return dividends, req(end(fmt.Sprintf("/v2/reference/dividends/%s", parameters.Ticker), &parameters), &dividends)
 }
 
 // StockFinancials ...
@@ -58,7 +58,7 @@ func StockFinancials(parameters *Parameters) ([]Financial, error) {
 		Results []Financial `json:"results"`
 	}
 
-	return response.Results, req(end(fmt.Sprintf("/v2/reference/financials/%s", parameters.Symbol), &parameters), &response)
+	return response.Results, req(end(fmt.Sprintf("/v2/reference/financials/%s", parameters.Ticker), &parameters), &response)
 }
 
 // Exchanges ...

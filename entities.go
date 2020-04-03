@@ -17,7 +17,6 @@ type Parameters struct {
 	Timespan       string `json:",omitempty" url:",omitempty"`
 	From           string `json:",omitempty" url:",omitempty"`
 	To             string `json:",omitempty" url:",omitempty"`
-	Symbol         string `json:",omitempty" url:",omitempty"`
 	Sort           string `json:",omitempty" url:",omitempty"`
 	Type           string `json:",omitempty" url:",omitempty"`
 	Market         string `json:",omitempty" url:",omitempty"`
