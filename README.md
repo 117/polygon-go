@@ -5,12 +5,11 @@
 
 ## Installation
 
-`go get -u github.com/117/polygon@v0.1.0`
+`go get -u github.com/117/polygon@v0.1.1`
 
 ## Authentication
 
-Before calling any methods you must set your API key as an environment
-variable.
+Before calling any methods you must set your API key as an environment variable.
 
 ```GO
 func init() {
