@@ -1,4 +1,4 @@
-// @module github.com/117/polygon@v0.1.1
+// @module github.com/117/polygon@v0.2.1
 
 package polygon
 
@@ -21,7 +21,7 @@ func init() {
 	http.DefaultClient.Timeout = time.Second * 15
 }
 
-func req(url string, pointer interface{}) error {
+func request(url string, pointer interface{}) error {
 	response, err := http.DefaultClient.Get(url)
 
 	if err != nil {
@@ -30,7 +30,7 @@ func req(url string, pointer interface{}) error {
 
 	switch response.StatusCode {
 	case 401:
-		return errors.New("unauthorized, check your API key")
+		return errors.New("unauthorized check your API key")
 	case 404:
 		return errors.New("the specified resource was not found")
 	case 409:
@@ -40,7 +40,7 @@ func req(url string, pointer interface{}) error {
 	return json.NewDecoder(response.Body).Decode(&pointer)
 }
 
-func end(path string, options interface{}) string {
+func endpoint(path string, options interface{}) string {
 	values, _ := query.Values(options)
 	base := fmt.Sprintf("%s%s?apiKey=%s", PolygonBaseURL, path, os.Getenv("POLYGON_API_KEY"))
 

@@ -5,7 +5,7 @@
 
 ## Installation
 
-`go get -u github.com/117/polygon@v0.1.1`
+`go get -u github.com/117/polygon@v0.2.1`
 
 ## Authentication
 
@@ -19,32 +19,32 @@ func init() {
 
 ## Methods
 
-| Method                                       | Returns             | Example                                  |
-| :------------------------------------------- | :------------------ | :--------------------------------------- |
-| `polygon.Tickers(*polygon.Parameters)`       | `[]Ticker`          | [See Example](#Tickers)                  |
-| `polygon.TickerTypes()`                      | `Types`             | [See Example](#TickerTypes)              |
-| `polygon.TickerDetails(*polygon.Parameters)` | `Details`           | [See Example](#TickerDetails)            |
-| `polygon.TickerNews()`                       | `[]News`            | [See Example](#TickerNews)               |
-| `polygon.Markets()`                          | `[]Market`          | [See Example](#Markets)                  |
-| `polygon.Locales()`                          | `[]Locale`          | [See Example](#Locales)                  |
-| `polygon.StockSplits()`                      | `[]Split`           | [See Example](#StockSplits)              |
-| `polygon.StockDividends()`                   | `[]Dividend`        | [See Example](#StockDividends)           |
-| `polygon.StockFinancials()`                  | `[]Financial`       | [See Example](#StockFinancials)          |
-| `polygon.MarketStatus()`                     | `Status`            | [See Example](#MarketStatus)             |
-| `polygon.MarketHolidays()`                   | `[]Holiday`         | [See Example](#MarketHolidays)           |
-| `polygon.Exchanges()`                        | `[]Exchange`        | [See Example](#Exchanges)                |
-| `polygon.HistoricTrades()`                   | `[]Trade`           | [See Example](#HistoricTrades)           |
-| `polygon.HistoricQuotes()`                   | `[]Quote`           | [See Example](#HistoricQuotes)           |
-| `polygon.LastTradeForASymbol()`              | `Trade`             | [See Example](#LastTradeForASymbol)      |
-| `polygon.DailyOpenCloseAfterHours()`         | `Aggregate(...)`    | [See Example](#DailyOpenCloseAfterHours) |
-| `polygon.ConditionMappings()`                | `map[string]string` | [See Example](#ConditionMappings)        |
-| `polygon.SnapshotAllTickers()`               | `[]Snapshot`        | [See Example](#SnapshotAllTickers)       |
-| `polygon.SnapshotSingleTicker()`             | `Snapshot`          | [See Example](#SnapshotSingleTicker)     |
-| `polygon.SnapshotGainersLosers()`            | `[]Snapshot`        | [See Example](#SnapshotGainersLosers)    |
-| `polygon.PreviousClose()`                    | `Aggregate`         | [See Example](#PreviousClose)            |
-| `polygon.Aggregates()`                       | `[]Aggregate`       | [See Example](#Aggregates)               |
-| `polygon.GroupedDaily()`                     | `[]Aggregate`       | [See Example](#GroupedDaily)             |
-| more coming soon...                          |                     |                                          |
+| Method                                       | Returns                           | Example                               |
+| :------------------------------------------- | :-------------------------------- | :------------------------------------ |
+| `polygon.Tickers(*polygon.Parameters)`       | `ResponseTickers`                 | [See Example](#Tickers)               |
+| `polygon.TickerTypes()`                      | `ResponseTickerTypes`             | [See Example](#TickerTypes)           |
+| `polygon.TickerDetails(*polygon.Parameters)` | `ResponseTickerDetails`           | [See Example](#TickerDetails)         |
+| `polygon.TickerNews()`                       | `ResponseTickerNews`              | [See Example](#TickerNews)            |
+| `polygon.Markets()`                          | `ResponseMarkets`                 | [See Example](#Markets)               |
+| `polygon.Locales()`                          | `ResponseLocales`                 | [See Example](#Locales)               |
+| `polygon.StockSplits()`                      | `ResponseStockSplits`             | [See Example](#StockSplits)           |
+| `polygon.StockDividends()`                   | `ResponseStockDividends`          | [See Example](#StockDividends)        |
+| `polygon.StockFinancials()`                  | `ResponseStockFinancials`         | [See Example](#StockFinancials)       |
+| `polygon.MarketStatus()`                     | `ResponseMarketStatus`            | [See Example](#MarketStatus)          |
+| `polygon.MarketHolidays()`                   | `ResponseMarketHolidays`          | [See Example](#MarketHolidays)        |
+| `polygon.Exchanges()`                        | `ResponseExchanges`               | [See Example](#Exchanges)             |
+| `polygon.HistoricTrades()`                   | `ResponseHistoricTrades`          | [See Example](#HistoricTrades)        |
+| `polygon.HistoricQuotes()`                   | `ResponseHistoricQuotes`          | [See Example](#HistoricQuotes)        |
+| `polygon.LastTradeForATicker()`              | `ResponseLastTradeForATicker`     | [See Example](#LastTradeForATicker)   |
+| `polygon.DailyOpenClose()`                   | `ResponseDailyOpenClose`          | [See Example](#DailyOpenClose)        |
+| `polygon.ConditionMappings()`                | `map[string]string`               | [See Example](#ConditionMappings)     |
+| `polygon.SnapshotAllTickers()`               | `ResponseSnapshotMultipleTickers` | [See Example](#SnapshotAllTickers)    |
+| `polygon.SnapshotSingleTicker()`             | `ResponseSnapshotSingleTicker`    | [See Example](#SnapshotSingleTicker)  |
+| `polygon.SnapshotGainersLosers()`            | `ResponseSnapshotMultipleTickers` | [See Example](#SnapshotGainersLosers) |
+| `polygon.PreviousClose()`                    | `ResponsePreviousClose`           | [See Example](#PreviousClose)         |
+| `polygon.Aggregates()`                       | `ResponseAggregates`              | [See Example](#Aggregates)            |
+| `polygon.GroupedDaily()`                     | `ResponseAggregates`              | [See Example](#GroupedDaily)          |
+| more coming soon...                          |                                   |                                       |
 
 ### Tickers
 
@@ -74,7 +74,7 @@ similar companies.
 
 ```go
 details, err := polygon.TickerDetails(&polygon.Parameters{
-    Symbol: "AAPL",
+    Ticker: "AAPL",
     // possibly more, check polygon docs or hover in VSC
 })
 ```
@@ -85,7 +85,7 @@ Get news articles for this ticker.
 
 ```go
 news, err := polygon.TickerNews(&polygon.Parameters{
-    Symbol: "AAPL",
+    Ticker: "AAPL",
     // possibly more, check polygon docs or hover in VSC
 })
 ```
@@ -112,7 +112,7 @@ Get the historical splits for this symbol.
 
 ```go
 splits, err := polygon.StockSplits(&polygon.Parameters{
-    Symbol: "AAPL",
+    Ticker: "AAPL",
     // possibly more, check polygon docs or hover in VSC
 })
 ```
@@ -123,7 +123,7 @@ Get the historical divdends for this ticker.
 
 ```go
 dividends, err := polygon.StockDividends(&polygon.Parameters{
-    Symbol: "AAPL",
+    Ticker: "AAPL",
     // possibly more, check polygon docs or hover in VSC
 })
 ```
@@ -134,7 +134,7 @@ Get the historical financials for this ticker.
 
 ```go
 financials, err := polygon.StockFinancials(&polygon.Parameters{
-    Symbol: "AAPL",
+    Ticker: "AAPL",
     // possibly more, check polygon docs or hover in VSC
 })
 ```
@@ -169,7 +169,7 @@ Get historic trades for a ticker.
 
 ```go
 trades, err := polygon.HistoricTrades(&polygon.Parameters{
-    Symbol: "AAPL",
+    Ticker: "AAPL",
     Date:   "2020-01-01",
     Limit:  100,
     // possibly more, check polygon docs or hover in VSC
@@ -182,42 +182,42 @@ Get historic NBBO quotes for a ticker.
 
 ```go
 quotes, err := polygon.HistoricQuotes(&polygon.Parameters{
-    Symbol: "AAPL",
+    Ticker: "AAPL",
     Date:   "2020-01-01",
     Limit:  100,
     // possibly more, check polygon docs or hover in VSC
 })
 ```
 
-### LastTradeForASymbol
+### LastTradeForATicker
 
 Get the last trade for a given stock.
 
 ```go
-trade, err := polygon.LastTradeForASymbol(&polygon.Parameters{
-    Symbol: "AAPL",
+trade, err := polygon.LastTradeForATicker(&polygon.Parameters{
+    Ticker: "AAPL",
     // possibly more, check polygon docs or hover in VSC
 })
 ```
 
-### LastQuoteForASymbol
+### LastQuoteForATicker
 
 Get the last quote tick for a given stock.
 
 ```go
-quote, err := polygon.LastQuoteForASymbol(&polygon.Parameters{
-    Symbol: "AAPL",
+quote, err := polygon.LastQuoteForATicker(&polygon.Parameters{
+    Ticker: "AAPL",
     // possibly more, check polygon docs or hover in VSC
 })
 ```
 
-### DailyOpenCloseAfterHours
+### DailyOpenClose
 
 Get the open, close and afterhours prices of a symbol on a certain date.
 
 ```go
-quotes, err := polygon.DailyOpenCloseAfterHours(&polygon.Parameters{
-    Symbol: "AAPL",
+quotes, err := polygon.DailyOpenClose(&polygon.Parameters{
+    Ticker: "AAPL",
     Date:   "2020-01-01",
     // possibly more, check polygon docs or hover in VSC
 })

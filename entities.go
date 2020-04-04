@@ -2,18 +2,18 @@ package polygon
 
 import "time"
 
-// Parameters ...
+// Parameters - see method(s)
 type Parameters struct {
 	Ticker         string `json:",omitempty" url:",omitempty"`
 	Date           string `json:",omitempty" url:",omitempty"`
-	Timestamp      int    `json:",omitempty" url:",omitempty"`
-	TimestampLimit int    `json:",omitempty" url:",omitempty"`
+	Timestamp      int64  `json:",omitempty" url:",omitempty"`
+	TimestampLimit int64  `json:",omitempty" url:",omitempty"`
 	Reverse        bool   `json:",omitempty" url:",omitempty"`
-	Limit          int    `json:",omitempty" url:",omitempty"`
+	Limit          int64  `json:",omitempty" url:",omitempty"`
 	TickType       string `json:",omitempty" url:",omitempty"`
 	Direction      string `json:",omitempty" url:",omitempty"`
 	Unadjusted     bool   `json:",omitempty" url:",omitempty"`
-	Multiplier     int    `json:",omitempty" url:",omitempty"`
+	Multiplier     int64  `json:",omitempty" url:",omitempty"`
 	Timespan       string `json:",omitempty" url:",omitempty"`
 	From           string `json:",omitempty" url:",omitempty"`
 	To             string `json:",omitempty" url:",omitempty"`
@@ -22,25 +22,31 @@ type Parameters struct {
 	Market         string `json:",omitempty" url:",omitempty"`
 	Locale         string `json:",omitempty" url:",omitempty"`
 	Search         string `json:",omitempty" url:",omitempty"`
-	PerPage        int    `json:",omitempty" url:",omitempty"`
-	Page           int    `json:",omitempty" url:",omitempty"`
+	PerPage        int64  `json:",omitempty" url:",omitempty"`
+	Page           int64  `json:",omitempty" url:",omitempty"`
 	Active         bool   `json:",omitempty" url:",omitempty"`
 }
 
-// Locale ...
-type Locale struct {
-	Locale string `json:"locale"`
-	Name   string `json:"name"`
+// ResponseLocales - see method(s)
+type ResponseLocales struct {
+	Status  string `json:"status"`
+	Results []struct {
+		Locale string `json:"locale"`
+		Name   string `json:"name"`
+	} `json:"results"`
 }
 
-// Market ...
-type Market struct {
-	Market      string `json:"market"`
-	Description string `json:"desc"`
+// ResponseMarkets - see method(s)
+type ResponseMarkets struct {
+	Status  string `json:"status"`
+	Results []struct {
+		Market      string `json:"market"`
+		Description string `json:"desc"`
+	} `json:"results"`
 }
 
-// Status ...
-type Status struct {
+// ResponseMarketStatus - see method(s)
+type ResponseMarketStatus struct {
 	Market     string `json:"market"`
 	ServerTime string `json:"serverTime"`
 	Exchanges  struct {
@@ -54,8 +60,8 @@ type Status struct {
 	} `json:"currencies"`
 }
 
-// Holiday ...
-type Holiday struct {
+// ResponseMarketHolidays - see method(s)
+type ResponseMarketHolidays []struct {
 	Exchange string    `json:"exchange"`
 	Name     string    `json:"name"`
 	Status   string    `json:"status"`
@@ -64,8 +70,8 @@ type Holiday struct {
 	Close    time.Time `json:"close"`
 }
 
-// Ticker ...
-type Ticker struct {
+// ResponseTickers - see method(s)
+type ResponseTickers []struct {
 	Ticker      string `json:"ticker"`
 	Name        string `json:"name"`
 	Market      string `json:"market"`
@@ -85,14 +91,17 @@ type Ticker struct {
 	URL     string    `json:"url"`
 }
 
-// Types ...
-type Types struct {
-	Types      map[string]string `json:"types"`
-	IndexTypes map[string]string `json:"indexTypes"`
+// ResponseTypes - see method(s)
+type ResponseTypes struct {
+	Status  string `json:"status"`
+	Results struct {
+		Types      map[string]string `json:"types"`
+		IndexTypes map[string]string `json:"indexTypes"`
+	} `json:"results"`
 }
 
-// Details ...
-type Details struct {
+// ResponseTickerDetails - see method(s)
+type ResponseTickerDetails struct {
 	Logo        string   `json:"logo"`
 	Exchange    string   `json:"exchange"`
 	Name        string   `json:"name"`
@@ -100,12 +109,12 @@ type Details struct {
 	Cik         string   `json:"cik"`
 	Bloomberg   string   `json:"bloomberg"`
 	Lei         string   `json:"lei"`
-	Sic         int      `json:"sic"`
+	Sic         int64    `json:"sic"`
 	Country     string   `json:"country"`
 	Industry    string   `json:"industry"`
 	Sector      string   `json:"sector"`
 	Marketcap   int64    `json:"marketcap"`
-	Employees   int      `json:"employees"`
+	Employees   int64    `json:"employees"`
 	Phone       string   `json:"phone"`
 	Ceo         string   `json:"ceo"`
 	URL         string   `json:"url"`
@@ -114,8 +123,8 @@ type Details struct {
 	Tags        []string `json:"tags"`
 }
 
-// News ...
-type News struct {
+// ResponseTickerNews - see method(s)
+type ResponseTickerNews []struct {
 	Symbols   []string  `json:"symbols"`
 	Title     string    `json:"title"`
 	URL       string    `json:"url"`
@@ -126,148 +135,160 @@ type News struct {
 	Keywords  []string  `json:"keywords"`
 }
 
-// Split ...
-type Split struct {
-	Ticker       string  `json:"ticker"`
-	ExDate       string  `json:"exDate"`
-	PaymentDate  string  `json:"paymentDate"`
-	RecordDate   string  `json:"recordDate"`
-	DeclaredDate string  `json:"declaredDate"`
-	Ratio        float64 `json:"ratio"`
-	Tofactor     int     `json:"tofactor"`
-	Forfactor    int     `json:"forfactor"`
+// ResponseStockSplits - see method(s)
+type ResponseStockSplits struct {
+	Status  string `json:"status"`
+	Count   int64  `json:"count"`
+	Results []struct {
+		Ticker       string  `json:"ticker"`
+		ExDate       string  `json:"exDate"`
+		PaymentDate  string  `json:"paymentDate"`
+		RecordDate   string  `json:"recordDate"`
+		DeclaredDate string  `json:"declaredDate"`
+		Ratio        float64 `json:"ratio"`
+		Tofactor     int64   `json:"tofactor"`
+		Forfactor    int64   `json:"forfactor"`
+	} `json:"results"`
 }
 
-// Dividend ...
-type Dividend struct {
-	Symbol       string    `json:"symbol"`
-	Type         string    `json:"type"`
-	ExDate       time.Time `json:"exDate"`
-	PaymentDate  time.Time `json:"paymentDate"`
-	RecordDate   time.Time `json:"recordDate"`
-	DeclaredDate time.Time `json:"declaredDate"`
-	Amount       float64   `json:"amount"`
-	Qualified    string    `json:"qualified"`
-	Flag         string    `json:"flag"`
+// ResponseStockDividends - see method(s)
+type ResponseStockDividends struct {
+	Status  string `json:"status"`
+	Count   int64  `json:"count"`
+	Results []struct {
+		Symbol       string    `json:"symbol"`
+		Type         string    `json:"type"`
+		ExDate       time.Time `json:"exDate"`
+		PaymentDate  time.Time `json:"paymentDate"`
+		RecordDate   time.Time `json:"recordDate"`
+		DeclaredDate time.Time `json:"declaredDate"`
+		Amount       float64   `json:"amount"`
+		Qualified    string    `json:"qualified"`
+		Flag         string    `json:"flag"`
+	} `json:"results"`
 }
 
-// Financial ...
-type Financial struct {
-	Ticker                                                 string  `json:"ticker"`
-	Period                                                 string  `json:"period"`
-	CalendarDate                                           string  `json:"calendarDate"`
-	ReportPeriod                                           string  `json:"reportPeriod"`
-	Updated                                                string  `json:"updated"`
-	AccumulatedOtherComprehensiveIncome                    float64 `json:"accumulatedOtherComprehensiveIncome"`
-	Assets                                                 float64 `json:"assets"`
-	AssetsAverage                                          float64 `json:"assetsAverage"`
-	AssetsCurrent                                          float64 `json:"assetsCurrent"`
-	AssetTurnover                                          float64 `json:"assetTurnover"`
-	AssetsNonCurrent                                       float64 `json:"assetsNonCurrent"`
-	BookValuePerShare                                      float64 `json:"bookValuePerShare"`
-	CapitalExpenditure                                     float64 `json:"capitalExpenditure"`
-	CashAndEquivalents                                     float64 `json:"cashAndEquivalents"`
-	CashAndEquivalentsUSD                                  float64 `json:"cashAndEquivalentsUSD"`
-	CostOfRevenue                                          float64 `json:"costOfRevenue"`
-	ConsolidatedIncome                                     float64 `json:"consolidatedIncome"`
-	CurrentRatio                                           float64 `json:"currentRatio"`
-	DebtToEquityRatio                                      float64 `json:"debtToEquityRatio"`
-	Debt                                                   float64 `json:"debt"`
-	DebtCurrent                                            float64 `json:"debtCurrent"`
-	DebtNonCurrent                                         float64 `json:"debtNonCurrent"`
-	DebtUSD                                                float64 `json:"debtUSD"`
-	DeferredRevenue                                        float64 `json:"deferredRevenue"`
-	DepreciationAmortizationAndAccretion                   float64 `json:"depreciationAmortizationAndAccretion"`
-	Deposits                                               float64 `json:"deposits"`
-	DividendYield                                          float64 `json:"dividendYield"`
-	DividendsPerBasicCommonShare                           float64 `json:"dividendsPerBasicCommonShare"`
-	EarningBeforeInterestTaxes                             float64 `json:"earningBeforeInterestTaxes"`
-	EarningsBeforeInterestTaxesDepreciationAmortization    float64 `json:"earningsBeforeInterestTaxesDepreciationAmortization"`
-	EBITDAMargin                                           float64 `json:"EBITDAMargin"`
-	EarningsBeforeInterestTaxesDepreciationAmortizationUSD float64 `json:"earningsBeforeInterestTaxesDepreciationAmortizationUSD"`
-	EarningBeforeInterestTaxesUSD                          float64 `json:"earningBeforeInterestTaxesUSD"`
-	EarningsBeforeTax                                      float64 `json:"earningsBeforeTax"`
-	EarningsPerBasicShare                                  float64 `json:"earningsPerBasicShare"`
-	EarningsPerDilutedShare                                float64 `json:"earningsPerDilutedShare"`
-	EarningsPerBasicShareUSD                               float64 `json:"earningsPerBasicShareUSD"`
-	ShareholdersEquity                                     float64 `json:"shareholdersEquity"`
-	AverageEquity                                          float64 `json:"averageEquity"`
-	ShareholdersEquityUSD                                  float64 `json:"shareholdersEquityUSD"`
-	EnterpriseValue                                        float64 `json:"enterpriseValue"`
-	EnterpriseValueOverEBIT                                float64 `json:"enterpriseValueOverEBIT"`
-	EnterpriseValueOverEBITDA                              float64 `json:"enterpriseValueOverEBITDA"`
-	FreeCashFlow                                           float64 `json:"freeCashFlow"`
-	FreeCashFlowPerShare                                   float64 `json:"freeCashFlowPerShare"`
-	ForeignCurrencyUSDExchangeRate                         float64 `json:"foreignCurrencyUSDExchangeRate"`
-	GrossProfit                                            float64 `json:"grossProfit"`
-	GrossMargin                                            float64 `json:"grossMargin"`
-	GoodwillAndIntangibleAssets                            float64 `json:"goodwillAndIntangibleAssets"`
-	InterestExpense                                        float64 `json:"interestExpense"`
-	InvestedCapital                                        float64 `json:"investedCapital"`
-	InvestedCapitalAverage                                 float64 `json:"investedCapitalAverage"`
-	Inventory                                              float64 `json:"inventory"`
-	Investments                                            float64 `json:"investments"`
-	InvestmentsCurrent                                     float64 `json:"investmentsCurrent"`
-	InvestmentsNonCurrent                                  float64 `json:"investmentsNonCurrent"`
-	TotalLiabilities                                       float64 `json:"totalLiabilities"`
-	CurrentLiabilities                                     float64 `json:"currentLiabilities"`
-	LiabilitiesNonCurrent                                  float64 `json:"liabilitiesNonCurrent"`
-	MarketCapitalization                                   float64 `json:"marketCapitalization"`
-	NetCashFlow                                            float64 `json:"netCashFlow"`
-	NetCashFlowBusinessAcquisitionsDisposals               float64 `json:"netCashFlowBusinessAcquisitionsDisposals"`
-	IssuanceEquityShares                                   float64 `json:"issuanceEquityShares"`
-	IssuanceDebtSecurities                                 float64 `json:"issuanceDebtSecurities"`
-	PaymentDividendsOtherCashDistributions                 float64 `json:"paymentDividendsOtherCashDistributions"`
-	NetCashFlowFromFinancing                               float64 `json:"netCashFlowFromFinancing"`
-	NetCashFlowFromInvesting                               float64 `json:"netCashFlowFromInvesting"`
-	NetCashFlowInvestmentAcquisitionsDisposals             float64 `json:"netCashFlowInvestmentAcquisitionsDisposals"`
-	NetCashFlowFromOperations                              float64 `json:"netCashFlowFromOperations"`
-	EffectOfExchangeRateChangesOnCash                      float64 `json:"effectOfExchangeRateChangesOnCash"`
-	NetIncome                                              float64 `json:"netIncome"`
-	NetIncomeCommonStock                                   float64 `json:"netIncomeCommonStock"`
-	NetIncomeCommonStockUSD                                float64 `json:"netIncomeCommonStockUSD"`
-	NetLossIncomeFromDiscontinuedOperations                float64 `json:"netLossIncomeFromDiscontinuedOperations"`
-	NetIncomeToNonControllingInterests                     float64 `json:"netIncomeToNonControllingInterests"`
-	ProfitMargin                                           float64 `json:"profitMargin"`
-	OperatingExpenses                                      float64 `json:"operatingExpenses"`
-	OperatingIncome                                        float64 `json:"operatingIncome"`
-	TradeAndNonTradePayables                               float64 `json:"tradeAndNonTradePayables"`
-	PayoutRatio                                            float64 `json:"payoutRatio"`
-	PriceToBookValue                                       float64 `json:"priceToBookValue"`
-	PriceEarnings                                          float64 `json:"priceEarnings"`
-	PriceToEarningsRatio                                   float64 `json:"priceToEarningsRatio"`
-	PropertyPlantEquipmentNet                              float64 `json:"propertyPlantEquipmentNet"`
-	PreferredDividendsIncomeStatementImpact                float64 `json:"preferredDividendsIncomeStatementImpact"`
-	SharePriceAdjustedClose                                float64 `json:"sharePriceAdjustedClose"`
-	PriceSales                                             float64 `json:"priceSales"`
-	PriceToSalesRatio                                      float64 `json:"priceToSalesRatio"`
-	TradeAndNonTradeReceivables                            float64 `json:"tradeAndNonTradeReceivables"`
-	AccumulatedRetainedEarningsDeficit                     float64 `json:"accumulatedRetainedEarningsDeficit"`
-	Revenues                                               float64 `json:"revenues"`
-	RevenuesUSD                                            float64 `json:"revenuesUSD"`
-	ResearchAndDevelopmentExpense                          float64 `json:"researchAndDevelopmentExpense"`
-	ReturnOnAverageAssets                                  float64 `json:"returnOnAverageAssets"`
-	ReturnOnAverageEquity                                  float64 `json:"returnOnAverageEquity"`
-	ReturnOnInvestedCapital                                float64 `json:"returnOnInvestedCapital"`
-	ReturnOnSales                                          float64 `json:"returnOnSales"`
-	ShareBasedCompensation                                 float64 `json:"shareBasedCompensation"`
-	SellingGeneralAndAdministrativeExpense                 float64 `json:"sellingGeneralAndAdministrativeExpense"`
-	ShareFactor                                            float64 `json:"shareFactor"`
-	Shares                                                 float64 `json:"shares"`
-	WeightedAverageShares                                  float64 `json:"weightedAverageShares"`
-	WeightedAverageSharesDiluted                           float64 `json:"weightedAverageSharesDiluted"`
-	SalesPerShare                                          float64 `json:"salesPerShare"`
-	TangibleAssetValue                                     float64 `json:"tangibleAssetValue"`
-	TaxAssets                                              float64 `json:"taxAssets"`
-	IncomeTaxExpense                                       float64 `json:"incomeTaxExpense"`
-	TaxLiabilities                                         float64 `json:"taxLiabilities"`
-	TangibleAssetsBookValuePerShare                        float64 `json:"tangibleAssetsBookValuePerShare"`
-	WorkingCapital                                         float64 `json:"workingCapital"`
+// ResponseStockFinancials - see method(s)
+type ResponseStockFinancials struct {
+	Status  string `json:"status"`
+	Count   int64  `json:"count"`
+	Results []struct {
+		Ticker                                                 string  `json:"ticker"`
+		Period                                                 string  `json:"period"`
+		CalendarDate                                           string  `json:"calendarDate"`
+		ReportPeriod                                           string  `json:"reportPeriod"`
+		Updated                                                string  `json:"updated"`
+		AccumulatedOtherComprehensiveIncome                    float64 `json:"accumulatedOtherComprehensiveIncome"`
+		Assets                                                 float64 `json:"assets"`
+		AssetsAverage                                          float64 `json:"assetsAverage"`
+		AssetsCurrent                                          float64 `json:"assetsCurrent"`
+		AssetTurnover                                          float64 `json:"assetTurnover"`
+		AssetsNonCurrent                                       float64 `json:"assetsNonCurrent"`
+		BookValuePerShare                                      float64 `json:"bookValuePerShare"`
+		CapitalExpenditure                                     float64 `json:"capitalExpenditure"`
+		CashAndEquivalents                                     float64 `json:"cashAndEquivalents"`
+		CashAndEquivalentsUSD                                  float64 `json:"cashAndEquivalentsUSD"`
+		CostOfRevenue                                          float64 `json:"costOfRevenue"`
+		ConsolidatedIncome                                     float64 `json:"consolidatedIncome"`
+		CurrentRatio                                           float64 `json:"currentRatio"`
+		DebtToEquityRatio                                      float64 `json:"debtToEquityRatio"`
+		Debt                                                   float64 `json:"debt"`
+		DebtCurrent                                            float64 `json:"debtCurrent"`
+		DebtNonCurrent                                         float64 `json:"debtNonCurrent"`
+		DebtUSD                                                float64 `json:"debtUSD"`
+		DeferredRevenue                                        float64 `json:"deferredRevenue"`
+		DepreciationAmortizationAndAccretion                   float64 `json:"depreciationAmortizationAndAccretion"`
+		Deposits                                               float64 `json:"deposits"`
+		DividendYield                                          float64 `json:"dividendYield"`
+		DividendsPerBasicCommonShare                           float64 `json:"dividendsPerBasicCommonShare"`
+		EarningBeforeInterestTaxes                             float64 `json:"earningBeforeInterestTaxes"`
+		EarningsBeforeInterestTaxesDepreciationAmortization    float64 `json:"earningsBeforeInterestTaxesDepreciationAmortization"`
+		EBITDAMargin                                           float64 `json:"EBITDAMargin"`
+		EarningsBeforeInterestTaxesDepreciationAmortizationUSD float64 `json:"earningsBeforeInterestTaxesDepreciationAmortizationUSD"`
+		EarningBeforeInterestTaxesUSD                          float64 `json:"earningBeforeInterestTaxesUSD"`
+		EarningsBeforeTax                                      float64 `json:"earningsBeforeTax"`
+		EarningsPerBasicShare                                  float64 `json:"earningsPerBasicShare"`
+		EarningsPerDilutedShare                                float64 `json:"earningsPerDilutedShare"`
+		EarningsPerBasicShareUSD                               float64 `json:"earningsPerBasicShareUSD"`
+		ShareholdersEquity                                     float64 `json:"shareholdersEquity"`
+		AverageEquity                                          float64 `json:"averageEquity"`
+		ShareholdersEquityUSD                                  float64 `json:"shareholdersEquityUSD"`
+		EnterpriseValue                                        float64 `json:"enterpriseValue"`
+		EnterpriseValueOverEBIT                                float64 `json:"enterpriseValueOverEBIT"`
+		EnterpriseValueOverEBITDA                              float64 `json:"enterpriseValueOverEBITDA"`
+		FreeCashFlow                                           float64 `json:"freeCashFlow"`
+		FreeCashFlowPerShare                                   float64 `json:"freeCashFlowPerShare"`
+		ForeignCurrencyUSDExchangeRate                         float64 `json:"foreignCurrencyUSDExchangeRate"`
+		GrossProfit                                            float64 `json:"grossProfit"`
+		GrossMargin                                            float64 `json:"grossMargin"`
+		GoodwillAndIntangibleAssets                            float64 `json:"goodwillAndIntangibleAssets"`
+		InterestExpense                                        float64 `json:"interestExpense"`
+		InvestedCapital                                        float64 `json:"investedCapital"`
+		InvestedCapitalAverage                                 float64 `json:"investedCapitalAverage"`
+		Inventory                                              float64 `json:"inventory"`
+		Investments                                            float64 `json:"investments"`
+		InvestmentsCurrent                                     float64 `json:"investmentsCurrent"`
+		InvestmentsNonCurrent                                  float64 `json:"investmentsNonCurrent"`
+		TotalLiabilities                                       float64 `json:"totalLiabilities"`
+		CurrentLiabilities                                     float64 `json:"currentLiabilities"`
+		LiabilitiesNonCurrent                                  float64 `json:"liabilitiesNonCurrent"`
+		MarketCapitalization                                   float64 `json:"marketCapitalization"`
+		NetCashFlow                                            float64 `json:"netCashFlow"`
+		NetCashFlowBusinessAcquisitionsDisposals               float64 `json:"netCashFlowBusinessAcquisitionsDisposals"`
+		IssuanceEquityShares                                   float64 `json:"issuanceEquityShares"`
+		IssuanceDebtSecurities                                 float64 `json:"issuanceDebtSecurities"`
+		PaymentDividendsOtherCashDistributions                 float64 `json:"paymentDividendsOtherCashDistributions"`
+		NetCashFlowFromFinancing                               float64 `json:"netCashFlowFromFinancing"`
+		NetCashFlowFromInvesting                               float64 `json:"netCashFlowFromInvesting"`
+		NetCashFlowInvestmentAcquisitionsDisposals             float64 `json:"netCashFlowInvestmentAcquisitionsDisposals"`
+		NetCashFlowFromOperations                              float64 `json:"netCashFlowFromOperations"`
+		EffectOfExchangeRateChangesOnCash                      float64 `json:"effectOfExchangeRateChangesOnCash"`
+		NetIncome                                              float64 `json:"netIncome"`
+		NetIncomeCommonStock                                   float64 `json:"netIncomeCommonStock"`
+		NetIncomeCommonStockUSD                                float64 `json:"netIncomeCommonStockUSD"`
+		NetLossIncomeFromDiscontinuedOperations                float64 `json:"netLossIncomeFromDiscontinuedOperations"`
+		NetIncomeToNonControllingInterests                     float64 `json:"netIncomeToNonControllingInterests"`
+		ProfitMargin                                           float64 `json:"profitMargin"`
+		OperatingExpenses                                      float64 `json:"operatingExpenses"`
+		OperatingIncome                                        float64 `json:"operatingIncome"`
+		TradeAndNonTradePayables                               float64 `json:"tradeAndNonTradePayables"`
+		PayoutRatio                                            float64 `json:"payoutRatio"`
+		PriceToBookValue                                       float64 `json:"priceToBookValue"`
+		PriceEarnings                                          float64 `json:"priceEarnings"`
+		PriceToEarningsRatio                                   float64 `json:"priceToEarningsRatio"`
+		PropertyPlantEquipmentNet                              float64 `json:"propertyPlantEquipmentNet"`
+		PreferredDividendsIncomeStatementImpact                float64 `json:"preferredDividendsIncomeStatementImpact"`
+		SharePriceAdjustedClose                                float64 `json:"sharePriceAdjustedClose"`
+		PriceSales                                             float64 `json:"priceSales"`
+		PriceToSalesRatio                                      float64 `json:"priceToSalesRatio"`
+		TradeAndNonTradeReceivables                            float64 `json:"tradeAndNonTradeReceivables"`
+		AccumulatedRetainedEarningsDeficit                     float64 `json:"accumulatedRetainedEarningsDeficit"`
+		Revenues                                               float64 `json:"revenues"`
+		RevenuesUSD                                            float64 `json:"revenuesUSD"`
+		ResearchAndDevelopmentExpense                          float64 `json:"researchAndDevelopmentExpense"`
+		ReturnOnAverageAssets                                  float64 `json:"returnOnAverageAssets"`
+		ReturnOnAverageEquity                                  float64 `json:"returnOnAverageEquity"`
+		ReturnOnInvestedCapital                                float64 `json:"returnOnInvestedCapital"`
+		ReturnOnSales                                          float64 `json:"returnOnSales"`
+		ShareBasedCompensation                                 float64 `json:"shareBasedCompensation"`
+		SellingGeneralAndAdministrativeExpense                 float64 `json:"sellingGeneralAndAdministrativeExpense"`
+		ShareFactor                                            float64 `json:"shareFactor"`
+		Shares                                                 float64 `json:"shares"`
+		WeightedAverageShares                                  float64 `json:"weightedAverageShares"`
+		WeightedAverageSharesDiluted                           float64 `json:"weightedAverageSharesDiluted"`
+		SalesPerShare                                          float64 `json:"salesPerShare"`
+		TangibleAssetValue                                     float64 `json:"tangibleAssetValue"`
+		TaxAssets                                              float64 `json:"taxAssets"`
+		IncomeTaxExpense                                       float64 `json:"incomeTaxExpense"`
+		TaxLiabilities                                         float64 `json:"taxLiabilities"`
+		TangibleAssetsBookValuePerShare                        float64 `json:"tangibleAssetsBookValuePerShare"`
+		WorkingCapital                                         float64 `json:"workingCapital"`
+	} `json:"results"`
 }
 
-// Exchange ...
-type Exchange struct {
-	ID     int    `json:"id"`
+// ResponseExchanges - see method(s)
+type ResponseExchanges []struct {
+	ID     int64  `json:"id"`
 	Type   string `json:"type"`
 	Market string `json:"market"`
 	Mic    string `json:"mic"`
@@ -275,109 +296,231 @@ type Exchange struct {
 	Tape   string `json:"tape"`
 }
 
-// Trade ...
-type Trade struct {
-	Ticker            string  `json:"T"`
-	Timestamp         int64   `json:"t"`
-	TimestampExchange int64   `json:"y"`
-	TimestampTRF      int64   `json:"f"`
-	SequenceNumber    int     `json:"q"`
-	TradeID           string  `json:"i"`
-	ExchangeID        int     `json:"x"`
-	Size              int     `json:"s"`
-	Conditions        []int   `json:"c"`
-	Price             float64 `json:"p"`
-	Tape              int     `json:"z"`
+// ResponseHistoricTrades - see method(s)
+type ResponseHistoricTrades struct {
+	ResultsCount int64  `json:"results_count"`
+	DbLatency    int64  `json:"db_latency"`
+	Success      bool   `json:"success"`
+	Ticker       string `json:"ticker"`
+	Results      []struct {
+		Ticker            string  `json:"T"`
+		Timestamp         int64   `json:"t"`
+		TimestampExchange int64   `json:"y"`
+		TimestampTRF      int64   `json:"f"`
+		SequenceNumber    int64   `json:"q"`
+		TradeID           string  `json:"i"`
+		ExchangeID        int64   `json:"x"`
+		Size              int64   `json:"s"`
+		Conditions        []int   `json:"c"`
+		Price             float64 `json:"p"`
+		Tape              int64   `json:"z"`
+	} `json:"results"`
 }
 
-// Quote ...
-type Quote struct {
-	Ticker            string  `json:"T"`
-	Timestamp         int64   `json:"t"`
-	TimestampExchange int64   `json:"y"`
-	TimestampTRF      int64   `json:"f"`
-	SequenceNumber    int     `json:"q"`
-	Conditions        []int   `json:"c"`
-	Indicators        []int   `json:"i"`
-	Bid               float64 `json:"p"`
-	BidExchangeID     int     `json:"x"`
-	BidSize           int     `json:"s"`
-	Ask               float64 `json:"P"`
-	AskExchangeID     int     `json:"X"`
-	AskSize           int     `json:"S"`
-	Tape              int     `json:"z"`
+// ResponseHistoricQuotes - see method(s)
+type ResponseHistoricQuotes struct {
+	ResultsCount int64  `json:"results_count"`
+	DbLatency    int64  `json:"db_latency"`
+	Success      bool   `json:"success"`
+	Ticker       string `json:"ticker"`
+	Results      []struct {
+		Ticker            string  `json:"T"`
+		Timestamp         int64   `json:"t"`
+		TimestampExchange int64   `json:"y"`
+		TimestampTRF      int64   `json:"f"`
+		SequenceNumber    int64   `json:"q"`
+		Conditions        []int   `json:"c"`
+		Indicators        []int   `json:"i"`
+		Bid               float64 `json:"p"`
+		BidExchangeID     int64   `json:"x"`
+		BidSize           int64   `json:"s"`
+		Ask               float64 `json:"P"`
+		AskExchangeID     int64   `json:"X"`
+		AskSize           int64   `json:"S"`
+		Tape              int64   `json:"z"`
+	} `json:"results"`
 }
 
-// Aggregate ...
-type Aggregate struct {
-	Ticker     string  `json:"T"`
-	Volume     int     `json:"v"`
-	Open       float64 `json:"o"`
-	Close      float64 `json:"c"`
-	High       float64 `json:"h"`
-	Low        float64 `json:"l"`
-	Timestamp  int64   `json:"t"`
-	Items      int     `json:"n"`
-	Condition1 int     `json:"c1"`
-	Condition2 int     `json:"c2"`
-	Condition3 int     `json:"c3"`
-	Condition4 int     `json:"c4"`
+// ResponseLastTradeForASymbol - see method(s)
+type ResponseLastTradeForASymbol struct {
+	Status string `json:"status"`
+	Symbol string `json:"symbol"`
+	Last   struct {
+		Price      float64 `json:"price"`
+		Size       int64   `json:"size"`
+		Exchange   int64   `json:"exchange"`
+		Condition1 int64   `json:"cond1"`
+		Condition2 int64   `json:"cond2"`
+		Condition3 int64   `json:"cond3"`
+		Condition4 int64   `json:"cond4"`
+		Timestamp  int64   `json:"timestamp"`
+	} `json:"last"`
 }
 
-// Daily ...
-type Daily struct {
+// ResponseLastQuoteForASymbol - see method(s)
+type ResponseLastQuoteForASymbol struct {
+	Status string `json:"status"`
+	Symbol string `json:"symbol"`
+	Last   struct {
+		AskPrice    float64 `json:"askprice"`
+		AskSize     int64   `json:"asksize"`
+		AskExchange int64   `json:"askexchange"`
+		BidPrice    float64 `json:"bidprice"`
+		BidSize     int64   `json:"bidsize"`
+		BidExchange int64   `json:"bidexchange"`
+		Timestamp   int64   `json:"timestamp"`
+	} `json:"last"`
+}
+
+// ResponseDailyOpenClose - see method(s)
+type ResponseDailyOpenClose struct {
 	Status     string  `json:"status"`
 	From       string  `json:"from"`
+	Symbol     string  `json:"AAPL"`
 	Open       float64 `json:"open"`
 	High       float64 `json:"high"`
 	Low        float64 `json:"low"`
 	Close      float64 `json:"close"`
 	AfterHours float64 `json:"afterHours"`
-	Volume     int     `json:"volume"`
+	Volume     int64   `json:"volume"`
 }
 
-// Snapshot ...
-type Snapshot struct {
-	Ticker string `json:"ticker"`
-	Day    struct {
-		Close  float64 `json:"c"`
-		High   float64 `json:"h"`
-		Low    float64 `json:"l"`
-		Open   float64 `json:"o"`
-		Volume float64 `json:"v"`
-	} `json:"day"`
-	LastTrade struct {
-		Condition1 int     `json:"c1"`
-		Condition2 int     `json:"c2"`
-		Condition3 int     `json:"c3"`
-		Condition4 int     `json:"c4"`
-		Exchange   int     `json:"e"`
-		Price      float64 `json:"p"`
-		Size       int     `json:"s"`
+// ResponseSnapshotMultipleTickers - see method(s)
+type ResponseSnapshotMultipleTickers struct {
+	Status  string `json:"status"`
+	Tickers []struct {
+		Ticker string `json:"ticker"`
+		Day    struct {
+			Open   float64 `json:"o"`
+			High   float64 `json:"h"`
+			Low    float64 `json:"l"`
+			Close  float64 `json:"c"`
+			Volume float64 `json:"v"`
+		} `json:"day"`
+		LastTrade struct {
+			Price      float64 `json:"p"`
+			Size       int64   `json:"s"`
+			Exchange   int64   `json:"e"`
+			Condition1 int64   `json:"c1"`
+			Condition2 int64   `json:"c2"`
+			Condition3 int64   `json:"c3"`
+			Condition4 int64   `json:"c4"`
+			Timestamp  int64   `json:"t"`
+		} `json:"lastTrade"`
+		LastQuote struct {
+			BidPrice  float64 `json:"p"`
+			BidSize   int64   `json:"s"`
+			AskPrice  float64 `json:"P"`
+			AskSize   int64   `json:"S"`
+			Timestamp int64   `json:"t"`
+		} `json:"lastQuote"`
+		Minute struct {
+			Open   float64 `json:"o"`
+			High   float64 `json:"h"`
+			Low    float64 `json:"l"`
+			Close  float64 `json:"c"`
+			Volume float64 `json:"v"`
+		} `json:"minute"`
+		PreviousDay struct {
+			Open   float64 `json:"o"`
+			High   float64 `json:"h"`
+			Low    float64 `json:"l"`
+			Close  float64 `json:"c"`
+			Volume float64 `json:"v"`
+		} `json:"prevDay"`
+		TodaysChange     float64 `json:"todaysChange"`
+		TodaysChangePerc float64 `json:"todaysChangePerc"`
+		Updated          int64   `json:"updated"`
+	} `json:"tickers"`
+}
+
+// ResponseSnapshotSingleTicker - see method(s)
+type ResponseSnapshotSingleTicker struct {
+	Status string `json:"status"`
+	Ticker struct {
+		Ticker string `json:"ticker"`
+		Day    struct {
+			Open   float64 `json:"o"`
+			High   float64 `json:"h"`
+			Low    float64 `json:"l"`
+			Close  float64 `json:"c"`
+			Volume float64 `json:"v"`
+		} `json:"day"`
+		LastTrade struct {
+			Price      float64 `json:"p"`
+			Size       int64   `json:"s"`
+			Exchange   int64   `json:"e"`
+			Condition1 int64   `json:"c1"`
+			Condition2 int64   `json:"c2"`
+			Condition3 int64   `json:"c3"`
+			Condition4 int64   `json:"c4"`
+			Timestamp  int64   `json:"t"`
+		} `json:"lastTrade"`
+		LastQuote struct {
+			BidPrice  float64 `json:"p"`
+			BidSize   int64   `json:"s"`
+			AskPrice  float64 `json:"P"`
+			AskSize   int64   `json:"S"`
+			Timestamp int64   `json:"t"`
+		} `json:"lastQuote"`
+		Minute struct {
+			Open   float64 `json:"o"`
+			High   float64 `json:"h"`
+			Low    float64 `json:"l"`
+			Close  float64 `json:"c"`
+			Volume float64 `json:"v"`
+		} `json:"minute"`
+		PreviousDay struct {
+			Open   float64 `json:"o"`
+			High   float64 `json:"h"`
+			Low    float64 `json:"l"`
+			Close  float64 `json:"c"`
+			Volume float64 `json:"v"`
+		} `json:"prevDay"`
+		TodaysChange     float64 `json:"todaysChange"`
+		TodaysChangePerc float64 `json:"todaysChangePerc"`
+		Updated          int64   `json:"updated"`
+	} `json:"ticker"`
+}
+
+// ResponsePreviousClose - see method(s)
+type ResponsePreviousClose struct {
+	Ticker       string `json:"ticker"`
+	Status       string `json:"status"`
+	Adjusted     bool   `json:"adjusted"`
+	QueryCount   int64  `json:"queryCount"`
+	ResultsCount int64  `json:"resultsCount"`
+	Results      []struct {
+		Ticker    string  `json:"T"`
+		Open      float64 `json:"o"`
+		High      float64 `json:"h"`
+		Low       float64 `json:"l"`
+		Close     float64 `json:"c"`
+		Volume    int64   `json:"v"`
+		Timestamp int64   `json:"t"`
+		Items     int64   `json:"n"`
+	}
+}
+
+// ResponseAggregates - see method(s)
+type ResponseAggregates struct {
+	Ticker       string `json:"ticker"`
+	Status       string `json:"status"`
+	Adjusted     bool   `json:"adjusted"`
+	QueryCount   int64  `json:"queryCount"`
+	ResultsCount int64  `json:"resultsCount"`
+	Results      []struct {
+		Ticker     string  `json:"T"`
+		Volume     int64   `json:"v"`
+		Open       float64 `json:"o"`
+		Close      float64 `json:"c"`
+		High       float64 `json:"h"`
+		Low        float64 `json:"l"`
 		Timestamp  int64   `json:"t"`
-	} `json:"lastTrade"`
-	LastQuote struct {
-		Ask       int   `json:"p"`
-		AskSize   int   `json:"s"`
-		Bid       int   `json:"P"`
-		BidSize   int   `json:"S"`
-		Timestamp int64 `json:"t"`
-	} `json:"lastQuote"`
-	Min struct {
-		Close  float64 `json:"c"`
-		High   float64 `json:"h"`
-		Low    float64 `json:"l"`
-		Open   float64 `json:"o"`
-		Volume float64 `json:"v"`
-	} `json:"min"`
-	PrevDay struct {
-		Close  float64 `json:"c"`
-		High   float64 `json:"h"`
-		Low    float64 `json:"l"`
-		Open   float64 `json:"o"`
-		Volume float64 `json:"v"`
-	} `json:"prevDay"`
-	TodaysChange     float64 `json:"todaysChange"`
-	TodaysChangePerc float64 `json:"todaysChangePerc"`
-	Updated          int64   `json:"updated"`
+		Items      int64   `json:"n"`
+		Condition1 int64   `json:"c1"`
+		Condition2 int64   `json:"c2"`
+		Condition3 int64   `json:"c3"`
+		Condition4 int64   `json:"c4"`
+	}
 }
