@@ -17,13 +17,29 @@ func init() {
 }
 ```
 
-## Streaming `New!`
+## Streaming
+
+Your API key allows 1 simultaneous connection to each cluster (3 total at one
+time). If another connection attempts to connect, the current connection will be
+disconnected.
+
+There are 3 separate real-time clusters. One for each market type:
+
+| Cluster | URL                              | Enum             |
+| :------ | :------------------------------- | :--------------- |
+| Stocks  | `wss://socket.polygon.io/stocks` | `polygon.Stocks` |
+| Forex   | `wss://socket.polygon.io/forex`  | `polygon.Forex`  |
+| Crypto  | `wss://socket.polygon.io/crypto` | `polygon.Crypto` |
+
+Connecting to these streams is easy. Simply pass the channels you'd like to
+receive events on, along with a handler.
 
 ```go
-Stream(Stocks, []string{"Q.SPY"}, func(event WebSocketEvent) {
+// this is a blocking method, put it in a for{} loop to reconnect on err
+polygon.Stream(polygon.Stocks, []string{"Q.SPY"}, func(event polygon.WebSocketEvent) {
     switch event.String("ev") {
     case "Q":
-        fmt.Println(fmt.Sprintf("received quote for symbol %q", event.String("sym")))
+        fmt.Println(fmt.Sprintf("received quote for %q symbol", event.String("sym")))
     }
 })
 ```
