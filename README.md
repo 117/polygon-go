@@ -20,10 +20,7 @@ func init() {
 ## Streaming
 
 Your API key allows 1 simultaneous connection to each cluster (3 total at one
-time). If another connection attempts to connect, the current connection will be
-disconnected.
-
-There are 3 separate real-time clusters. One for each market type:
+time). There are 3 separate real-time clusters. One for each market type:
 
 | Cluster | URL                              | Enum             |
 | :------ | :------------------------------- | :--------------- |
