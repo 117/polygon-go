@@ -46,6 +46,8 @@ polygon.Stream(polygon.Stocks, []string{"Q.SPY"}, func(event polygon.WebSocketEv
 
 ## Methods
 
+These are all the Polygon.io REST API methods supported by the wrapper.
+
 | Method                                       | Returns                           | Example                               |
 | :------------------------------------------- | :-------------------------------- | :------------------------------------ |
 | `polygon.Tickers(*polygon.Parameters)`       | `ResponseTickers`                 | [See Example](#Tickers)               |
