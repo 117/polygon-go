@@ -1,4 +1,4 @@
-// mod github.com/117/polygon@v0.2.1
+// mod github.com/117/polygon@v0.2.2
 
 package polygon
 
