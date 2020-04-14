@@ -1,4 +1,4 @@
-// @module github.com/117/polygon@v0.2.1
+// mod github.com/117/polygon@v0.2.1
 
 package polygon
 
@@ -9,17 +9,9 @@ import (
 	"net/http"
 	"os"
 	"strings"
-	"time"
 
 	"github.com/google/go-querystring/query"
 )
-
-// PolygonBaseURL - The base API url for all Polygon.io requests.
-const PolygonBaseURL = "https://api.polygon.io"
-
-func init() {
-	http.DefaultClient.Timeout = time.Second * 15
-}
 
 func request(url string, pointer interface{}) error {
 	response, err := http.DefaultClient.Get(url)
@@ -28,13 +20,8 @@ func request(url string, pointer interface{}) error {
 		return err
 	}
 
-	switch response.StatusCode {
-	case 401:
-		return errors.New("unauthorized check your API key")
-	case 404:
-		return errors.New("the specified resource was not found")
-	case 409:
-		return errors.New("parameter is invalid or incorrect")
+	if response.StatusCode != http.StatusOK {
+		return errors.New(response.Status)
 	}
 
 	return json.NewDecoder(response.Body).Decode(&pointer)
@@ -42,7 +29,7 @@ func request(url string, pointer interface{}) error {
 
 func endpoint(path string, options interface{}) string {
 	values, _ := query.Values(options)
-	base := fmt.Sprintf("%s%s?apiKey=%s", PolygonBaseURL, path, os.Getenv("POLYGON_API_KEY"))
+	base := fmt.Sprintf("%s%s?apiKey=%s", "https://api.polygon.io", path, os.Getenv("POLYGON_API_KEY"))
 
 	if encoded := values.Encode(); len(encoded) > 0 {
 		base = fmt.Sprintf("%s&%s", base, strings.ToLower(encoded))

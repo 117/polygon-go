@@ -11,10 +11,21 @@
 
 Before calling any methods you must set your API key as an environment variable.
 
-```GO
+```go
 func init() {
-    os.Setenv("POLYGON_API_KEY", "...")
+    os.Setenv("POLYGON_API_KEY", "api-key-goes-here")
 }
+```
+
+## Streaming `New!`
+
+```go
+Stream(Stocks, []string{"Q.SPY"}, func(event WebSocketEvent) {
+    switch event.String("ev") {
+    case "Q":
+        fmt.Println(fmt.Sprintf("received quote for symbol %q", event.String("sym")))
+    }
+})
 ```
 
 ## Methods

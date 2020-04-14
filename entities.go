@@ -1,6 +1,9 @@
 package polygon
 
-import "time"
+import (
+	"reflect"
+	"time"
+)
 
 // Parameters - see method(s)
 type Parameters struct {
@@ -523,4 +526,86 @@ type ResponseAggregates struct {
 		Condition3 int64   `json:"c3"`
 		Condition4 int64   `json:"c4"`
 	}
+}
+
+// WebSocketEvent null
+type WebSocketEvent map[string]interface{}
+
+// Interface null
+func (w WebSocketEvent) Interface(key string) interface{} {
+	return w[key]
+}
+
+// Float32 null
+func (w WebSocketEvent) Float32(key string) float32 {
+	if !w.ContainsKey(key) {
+		return 0.0
+	}
+
+	if reflect.TypeOf(w[key]).Kind() != reflect.Float32 {
+		return 0.0
+	}
+
+	return w[key].(float32)
+}
+
+// Float64 null
+func (w WebSocketEvent) Float64(key string) float64 {
+	if !w.ContainsKey(key) {
+		return 0.0
+	}
+
+	if reflect.TypeOf(w[key]).Kind() != reflect.Float64 {
+		return 0.0
+	}
+
+	return w[key].(float64)
+}
+
+// String null
+func (w WebSocketEvent) String(key string) string {
+	if !w.ContainsKey(key) {
+		return ""
+	}
+
+	if reflect.TypeOf(w[key]).Kind() != reflect.String {
+		return ""
+	}
+
+	return w[key].(string)
+}
+
+// Int null
+func (w WebSocketEvent) Int(key string) int {
+	if !w.ContainsKey(key) {
+		return 0
+	}
+
+	if reflect.TypeOf(w[key]).Kind() != reflect.Int {
+		return 0
+	}
+
+	return w[key].(int)
+}
+
+// Int64 null
+func (w WebSocketEvent) Int64(key string) int64 {
+	if !w.ContainsKey(key) {
+		return 0
+	}
+
+	if reflect.TypeOf(w[key]).Kind() != reflect.Int64 {
+		return 0
+	}
+
+	return w[key].(int64)
+}
+
+// ContainsKey null
+func (w WebSocketEvent) ContainsKey(key string) bool {
+	if _, has := w[key]; has {
+		return true
+	}
+
+	return false
 }
