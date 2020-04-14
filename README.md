@@ -31,8 +31,7 @@ There are 3 separate real-time clusters. One for each market type:
 | Forex   | `wss://socket.polygon.io/forex`  | `polygon.Forex`  |
 | Crypto  | `wss://socket.polygon.io/crypto` | `polygon.Crypto` |
 
-Connecting to these streams is easy. Simply pass the channels you'd like to
-receive events on, along with a handler.
+Connecting to these streams is easy.
 
 ```go
 // this is a blocking method, put it in a for{} loop to reconnect on err
