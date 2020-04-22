@@ -181,9 +181,7 @@ func NewClient(credentials *Credentials) (*Client, error) {
 	}
 
 	// this will error if unauthorized
-	if _, err := client.MarketStatus(); err != nil {
-		return nil, err
-	}
+	_, err := client.MarketStatus()
 
-	return client, nil
+	return client, err
 }
