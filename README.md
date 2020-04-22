@@ -5,15 +5,28 @@
 
 ## Installation
 
-`go get -u github.com/117/polygon@v0.2.2`
+`go get -u github.com/117/polygon@v0.3.0`
 
-## Authentication
+## Client
 
-Before calling any methods you must set your API key as an environment variable.
+There are two ways to interact with the client. The first is using an
+environment variable with the `DefaultClient`.
+
+```console
+$ export POLYGON_KEY yourKeyGoesHere
+```
+
+The second way is by creating your own client, this has the benefit of using
+multiple keys.
 
 ```go
-func init() {
-    os.Setenv("POLYGON_API_KEY", "api-key-goes-here")
+func main() {
+    client, err := polygon.NewClient(&polygon.Credentials{ Key: "yourKeyHere" })
+
+    // an error occurs if they key is unauthorized
+    if err != nil {
+        panic(err)
+    }
 }
 ```
 
@@ -30,8 +43,8 @@ Your API key allows 1 simultaneous connection to each cluster.
 Connecting to these servers is easy.
 
 ```go
-// this is a blocking method, put it in a for{} loop to reconnect on err
-err := polygon.Stream(polygon.Stocks, []string{"Q.SPY"}, func(event polygon.WebSocketEvent) {
+// this is a blocking method, wrap a for{} loop to reconnect on error
+err := polygon.Stream(polygon.Stocks, []string{"Q.SPY"}, func(event polygon.StreamEvent) {
     switch event.String("ev") {
     case "Q":
         fmt.Println(fmt.Sprintf("received quote for %q symbol", event.String("sym")))

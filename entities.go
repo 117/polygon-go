@@ -5,6 +5,11 @@ import (
 	"time"
 )
 
+// Credentials null
+type Credentials struct {
+	Key string
+}
+
 // Parameters - see method(s)
 type Parameters struct {
 	Ticker         string `json:",omitempty" url:",omitempty"`
@@ -385,7 +390,7 @@ type ResponseDailyOpenClose struct {
 	Low        float64 `json:"low"`
 	Close      float64 `json:"close"`
 	AfterHours float64 `json:"afterHours"`
-	Volume     int64   `json:"volume"`
+	Volume     float64 `json:"volume"`
 }
 
 // ResponseSnapshotMultipleTickers - see method(s)
@@ -514,7 +519,7 @@ type ResponseAggregates struct {
 	ResultsCount int64  `json:"resultsCount"`
 	Results      []struct {
 		Ticker     string  `json:"T"`
-		Volume     int64   `json:"v"`
+		Volume     float64 `json:"v"`
 		Open       float64 `json:"o"`
 		Close      float64 `json:"c"`
 		High       float64 `json:"h"`
@@ -528,82 +533,91 @@ type ResponseAggregates struct {
 	}
 }
 
-// WebSocketEvent null
-type WebSocketEvent map[string]interface{}
+// StreamCluster null
+type StreamCluster string
+
+var (
+	Stocks StreamCluster = "wss://socket.polygon.io/stocks"
+	Crypto               = "wss://socket.polygon.io/crypto"
+	Forex                = "wss://socket.polygon.io/forex"
+)
+
+// StreamEvent null
+type StreamEvent map[string]interface{}
 
 // Interface null
-func (w WebSocketEvent) Interface(key string) interface{} {
-	return w[key]
+func (s StreamEvent) Interface(key string) interface{} {
+	return s[key]
 }
 
 // Float32 null
-func (w WebSocketEvent) Float32(key string) float32 {
-	if !w.ContainsKey(key) {
+func (s StreamEvent) Float32(key string) float32 {
+	if !s.ContainsKey(key) {
 		return 0.0
 	}
 
-	if reflect.TypeOf(w[key]).Kind() != reflect.Float32 {
+	if reflect.TypeOf(s[key]).Kind() != reflect.Float32 {
 		return 0.0
 	}
 
-	return w[key].(float32)
+	return s[key].(float32)
 }
 
 // Float64 null
-func (w WebSocketEvent) Float64(key string) float64 {
-	if !w.ContainsKey(key) {
+func (s StreamEvent) Float64(key string) float64 {
+	if !s.ContainsKey(key) {
 		return 0.0
 	}
 
-	if reflect.TypeOf(w[key]).Kind() != reflect.Float64 {
+	if reflect.TypeOf(s[key]).Kind() != reflect.Float64 {
 		return 0.0
 	}
 
-	return w[key].(float64)
+	return s[key].(float64)
 }
 
 // String null
-func (w WebSocketEvent) String(key string) string {
-	if !w.ContainsKey(key) {
+func (s StreamEvent) String(key string) string {
+	if !s.ContainsKey(key) {
 		return ""
 	}
 
-	if reflect.TypeOf(w[key]).Kind() != reflect.String {
+	if reflect.TypeOf(s[key]).Kind() != reflect.String {
 		return ""
 	}
 
-	return w[key].(string)
+	return s[key].(string)
 }
 
 // Int null
-func (w WebSocketEvent) Int(key string) int {
-	if !w.ContainsKey(key) {
+func (s StreamEvent) Int(key string) int {
+	if !s.ContainsKey(key) {
 		return 0
 	}
 
-	if reflect.TypeOf(w[key]).Kind() != reflect.Int {
+	if reflect.TypeOf(s[key]).Kind() != reflect.Int {
 		return 0
 	}
 
-	return w[key].(int)
+	return s[key].(int)
 }
 
 // Int64 null
-func (w WebSocketEvent) Int64(key string) int64 {
-	if !w.ContainsKey(key) {
+func (s StreamEvent) Int64(key string) int64 {
+	if !s.ContainsKey(key) {
 		return 0
 	}
 
-	if reflect.TypeOf(w[key]).Kind() != reflect.Int64 {
+	if reflect.TypeOf(s[key]).Kind() != reflect.Int64 {
 		return 0
 	}
 
-	return w[key].(int64)
+	return s[key].(int64)
 }
 
 // ContainsKey null
-func (w WebSocketEvent) ContainsKey(key string) bool {
-	if _, has := w[key]; has {
+func (s StreamEvent) ContainsKey(key string) bool {
+	if _, has := s[key]; has {
 		return true
 	}
 
