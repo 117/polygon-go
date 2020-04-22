@@ -5,7 +5,7 @@
 
 ## Installation
 
-`go get -u github.com/117/polygon@v0.3.0`
+`go get -u github.com/117/polygon@latest`
 
 ## Client
 
