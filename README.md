@@ -21,7 +21,7 @@ multiple keys.
 
 ```go
 func main() {
-    client, err := polygon.NewClient(&polygon.Credentials{ Key: "yourKeyHere" })
+    client, err := polygon.NewClient(&polygon.Credentials{Key: "yourKeyHere"})
 
     // an error occurs if they key is unauthorized
     if err != nil {
